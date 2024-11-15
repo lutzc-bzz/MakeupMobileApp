@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Product_Guru</string>
+    <string name="app_name">Product Guru</string>
+    <string name="app_logo">App Logo</string>
+    <string name="sign_up_title">Sign up</string>
+    <string name="email_title">Email</string>
+    <string name="password_title">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign In</string>
 </resources>

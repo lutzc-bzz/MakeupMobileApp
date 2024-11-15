@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+
+
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/profileIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_profile"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"  />
+
+            <ImageView
+                android:id="@+id/filterIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_filter"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"  />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/searchBarBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_search_bar"
+            android:padding="2dp">
+            <ImageView
+                android:id="@+id/searchBarIcon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_search_dark"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"  />
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search for a product"
+                android:padding="12dp"
+                android:background="#FFF"
+                android:inputType="text"
+                android:textColorHint="#000" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!-- RecyclerView for Product Grid -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchBar"
+        android:padding="8dp"
+        android:layout_marginBottom="56dp"
+        android:scrollbars="vertical" />
+
+    <!-- Bottom Navigation Bar -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFC0CB"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/navSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search_light"
+            android:contentDescription="Search"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@+id/navSaved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_weight="1"
+            android:src="@drawable/ic_saved"
+            android:contentDescription="Saved"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <ImageButton
+            android:id="@+id/navCamera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:layout_weight="1"
+            android:src="@drawable/ic_camera"
+            android:contentDescription="Camera"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+
+</RelativeLayout>
