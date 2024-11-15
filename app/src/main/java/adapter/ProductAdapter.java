@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.product_guru.ProductDetailsActivity;
 import com.example.product_guru.R;
 
 import java.util.List;
@@ -39,6 +41,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productName.setText(product.getName());
         holder.productPrice.setText(product.getCurrency() + product.getPrice());
         Glide.with(context).load(product.getImageUrl()).into(holder.productImage);
+
+        // Set onClickListener to navigate to ProductDetailsActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailsActivity.class);
+            intent.putExtra("product_name", product.getName());
+            intent.putExtra("product_price", product.getPrice());
+            intent.putExtra("product_currency", product.getCurrency());
+            intent.putExtra("product_description", product.getDescription());
+            intent.putExtra("product_image", product.getImageUrl());
+            intent.putExtra("product_link", product.getProductLink());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -57,4 +71,5 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productPrice = itemView.findViewById(R.id.productPrice);
         }
     }
+
 }

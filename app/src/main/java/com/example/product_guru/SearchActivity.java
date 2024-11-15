@@ -32,7 +32,11 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
-        productRecyclerView = findViewById(R.id.productRecyclerView);
+        RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
+        productRecyclerView.setVerticalScrollBarEnabled(true);
+        productRecyclerView.setScrollBarSize(10); // This should match the XML attribute if you want it wider than 2dp
+        productRecyclerView.setScrollbarFadingEnabled(false); // Keeps the scrollbar visible at all times
+
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         productList = new ArrayList<>();
@@ -97,8 +101,10 @@ public class SearchActivity extends AppCompatActivity {
                 String price = jsonObject.getString("price");
                 String currency = jsonObject.getString("currency");
                 String imageUrl = jsonObject.getString("image_link");
+                String description = jsonObject.getString("description");
+                String productLink = jsonObject.getString("product_link");
 
-                productList.add(new Product(brand, name, price, currency, imageUrl));
+                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink));
             }
             productAdapter.notifyDataSetChanged();
         } catch (Exception e) {

@@ -82,9 +82,12 @@
         android:layout_below="@id/searchBar"
         android:padding="8dp"
         android:layout_marginBottom="56dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/custom_scrollbar_thumb"
+        android:scrollbarSize="10dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-    <!-- Bottom Navigation Bar -->
+
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
