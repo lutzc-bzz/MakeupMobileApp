@@ -98,10 +98,10 @@
             android:id="@+id/navSearch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scaleX="1"
-            android:scaleY="1"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_search"
+            android:src="@drawable/ic_search_light"
             android:contentDescription="Search"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
@@ -120,10 +120,10 @@
             android:id="@+id/navCamera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scaleX="2"
-            android:scaleY="2"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_camera"
+            android:src="@drawable/ic_camera"
             android:contentDescription="Camera"
             android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>
