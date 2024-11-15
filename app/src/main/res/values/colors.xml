@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="pastelpink">#EBC6CD</color>
+    <!-- Primary Colors -->
+    <color name="primaryColor">#FFC0CB</color> <!-- Soft Pink for buttons and highlights -->
+    <color name="primaryDarkColor">#FFB6C1</color> <!-- Darker pink shade -->
+    <color name="accentColor">#FF69B4</color> <!-- Bright pink for action highlights -->
+
+    <!-- Background Colors -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- White for main background -->
+    <color name="secondaryBackgroundColor">#F8F8F8</color> <!-- Light gray for secondary sections -->
+
+    <!-- Text Colors -->
+    <color name="textPrimary">#333333</color> <!-- Dark gray for primary text -->
+    <color name="textSecondary">#666666</color> <!-- Medium gray for secondary text -->
+    <color name="linkColor">#FF69B4</color> <!-- Bright pink for links like "Forgot Password" -->
+
+    <!-- Border/Divider Colors -->
+    <color name="borderColor">#DDDDDD</color> <!-- Light gray for borders and dividers -->
+
+    <!-- Button Colors -->
+    <color name="buttonTextColor">#FFFFFF</color> <!-- White text on buttons -->
+    <color name="buttonDisabledColor">#E5E5E5</color> <!-- Light gray for disabled buttons -->
+
+    <!-- Icon Colors -->
+    <color name="iconColor">#FF69B4</color> <!-- Icon color matching accent color -->
+
 </resources>

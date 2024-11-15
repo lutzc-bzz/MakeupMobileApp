@@ -1,102 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#F5F5F5"
-    android:id="@+id/main">
+    android:orientation="vertical"
+    android:padding="24dp">
 
     <ImageView
         android:id="@+id/logoImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/product_guru_logo"
-        android:contentDescription="App Logo"
-        tools:ignore="HardcodedText" />
+        android:src="@drawable/ic_logo_icon" />
 
     <TextView
-        android:id="@+id/titleText"
-        android:layout_width="104dp"
-        android:layout_height="47dp"
-        android:layout_below="@id/logoImage"
-        android:layout_marginTop="17dp"
-        android:text="Sign up"
-        android:textColor="#333333"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
-
-    <EditText
-        android:id="@+id/emailField"
-        android:layout_width="365dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleText"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:drawableStart="@drawable/ic_email"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="#333333"
-        android:textColorHint="#888888"
-        tools:ignore="HardcodedText" />
+        android:text="Sign up"
+        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"/>
 
     <EditText
-        android:id="@+id/passwordField"
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailField"
-        android:layout_marginTop="10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:drawableStart="@drawable/ic_password"
-        android:padding="10dp"
-        android:backgroundTint="#000000"
-        android:textColor="#333333"
-        android:textColorHint="#888888"
-        tools:ignore="HardcodedText" />
+        android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/passwordField"
-        android:layout_marginTop="20dp"
-        android:background="#FFCDD2"
-        android:enabled="true"
         android:text="Sign Up"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        tools:ignore="HardcodedText" />
+        android:layout_marginTop="16dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/signUpButton"
-        android:layout_marginTop="236dp"
+        android:text="Forgot Password?"
+        android:textColor="@color/linkColor"
+        android:layout_marginTop="16dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/signInLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textColor="@color/linkColor"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginTop="8dp" />
 
-        <TextView
-            android:id="@+id/forgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Forgot Password?"
-            android:textColor="#888888"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/signInText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign In"
-            android:textColor="#333333"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
