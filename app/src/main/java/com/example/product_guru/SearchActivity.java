@@ -101,8 +101,10 @@ public class SearchActivity extends AppCompatActivity {
                 String price = jsonObject.getString("price");
                 String currency = jsonObject.getString("currency");
                 String imageUrl = jsonObject.getString("image_link");
+                String description = jsonObject.getString("description");
+                String productLink = jsonObject.getString("product_link");
 
-                productList.add(new Product(brand, name, price, currency, imageUrl));
+                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink));
             }
             productAdapter.notifyDataSetChanged();
         } catch (Exception e) {
