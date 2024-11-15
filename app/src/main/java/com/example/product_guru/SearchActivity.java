@@ -32,7 +32,11 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
 
-        productRecyclerView = findViewById(R.id.productRecyclerView);
+        RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
+        productRecyclerView.setVerticalScrollBarEnabled(true);
+        productRecyclerView.setScrollBarSize(10); // This should match the XML attribute if you want it wider than 2dp
+        productRecyclerView.setScrollbarFadingEnabled(false); // Keeps the scrollbar visible at all times
+
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         productList = new ArrayList<>();
