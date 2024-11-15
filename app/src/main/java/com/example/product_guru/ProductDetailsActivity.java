@@ -2,6 +2,7 @@ package com.example.product_guru;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -22,6 +23,14 @@ public class ProductDetailsActivity extends AppCompatActivity {
         TextView productDescription = findViewById(R.id.productDescription);
         TextView productLink = findViewById(R.id.productLink);
         RatingBar productRating = findViewById(R.id.productRating);
+        ImageView backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Retrieve data from intent
         Intent intent = getIntent();
