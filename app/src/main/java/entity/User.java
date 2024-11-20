@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private String email;
     private String hashedPassword;
 

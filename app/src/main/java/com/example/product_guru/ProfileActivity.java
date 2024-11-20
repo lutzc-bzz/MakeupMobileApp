@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import entity.AppDatabase;
+import entity.User;
 import entity.UserDao;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -28,9 +30,28 @@ public class ProfileActivity extends AppCompatActivity {
         Switch notificationSwitch = findViewById(R.id.notificationSwitch);
 
         SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
-        String email = preferences.getString("email", null);
+        int id = preferences.getInt("id", -1);
 
-        emailText.setText(email);
+        if (id == -1) {
+            Toast.makeText(this, "No user is logged in", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        new Thread(() -> {
+            User user = userDao.getUserById(id);
+            if (user != null) {
+                runOnUiThread(() -> {
+                    emailText.setText(user.getEmail());
+                    nameText.setText("User ID: " + user.getId()); // You can add a real name if available
+                });
+            } else {
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "User not found", Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+            }
+        }).start();
 
         closeButton.setOnClickListener(v -> finish());
     }

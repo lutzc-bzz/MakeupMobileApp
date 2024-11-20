@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("email", user.getEmail());
+                editor.putInt("id", user.getId());
                 editor.apply();
 
                 runOnUiThread(() -> {
