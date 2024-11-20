@@ -16,10 +16,16 @@ import entity.User;
 import entity.UserDao;
 
 public class LoginActivity extends AppCompatActivity {
+    UserDao userDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Initialize UserDao
+        AppDatabase db = AppDatabase.getInstance(this);
+        userDao = db.userDao();
 
         TextView signUpLink = findViewById(R.id.signUpLink);
         TextView forgotPasswordLink = findViewById(R.id.forgotPassword);
@@ -53,18 +59,28 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            AppDatabase db = AppDatabase.getInstance(this);
-            UserDao userDao = db.userDao();
-            User user = userDao.getUserByEmail(email);
+            new Thread(() -> {
+                User user = userDao.getUserByEmail(email);
 
-            if (user == null || !HashUtil.hashPassword(password).equals(user.getHashedPassword())) {
-                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if (user == null) {
+                    runOnUiThread(() -> Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show());
+                    return;
+                }
 
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
-            startActivity(intent);
+                // Compare hashed password
+                String hashedInputPassword = HashUtil.hashPassword(password);
+                if (!hashedInputPassword.equals(user.getHashedPassword())) {
+                    runOnUiThread(() -> Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show());
+                    return;
+                }
+
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            }).start();
         });
     }
 }
