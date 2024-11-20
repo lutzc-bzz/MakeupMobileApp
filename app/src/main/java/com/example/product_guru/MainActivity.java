@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
 
-            // Validate inputs
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Email and password cannot be empty", Toast.LENGTH_SHORT).show();
                 return;
@@ -56,22 +56,24 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Hash the password
             String hashedPassword = HashUtil.hashPassword(password);
 
-            // Add user to the database
             new Thread(() -> {
-                User existingUser = userDao.getUserByEmail(email);
-                if (existingUser != null) {
-                    runOnUiThread(() -> Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show());
-                } else {
-                    User newUser = new User(email, hashedPassword);
-                    userDao.insertUser(newUser);
-                    runOnUiThread(() -> {
-                        Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, LoginActivity.class));
-                        finish();
-                    });
+                try {
+                    User existingUser = userDao.getUserByEmail(email);
+                    if (existingUser != null) {
+                        runOnUiThread(() -> Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show());
+                    } else {
+                        User newUser = new User(email, "User", hashedPassword);
+                        userDao.insertUser(newUser);
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(this, LoginActivity.class));
+                        });
+                    }
+                } catch (Exception e) {
+                    Log.e("RegisterError", "Error during registration", e);
+                    runOnUiThread(() -> Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show());
                 }
             }).start();
         });
