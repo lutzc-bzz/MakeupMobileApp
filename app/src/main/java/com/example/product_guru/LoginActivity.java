@@ -1,6 +1,7 @@
 package com.example.product_guru;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -73,6 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                     runOnUiThread(() -> Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show());
                     return;
                 }
+
+                SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("email", user.getEmail());
+                editor.apply();
 
                 runOnUiThread(() -> {
                     Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
