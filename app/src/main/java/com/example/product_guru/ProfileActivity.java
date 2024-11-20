@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
             if (user != null) {
                 runOnUiThread(() -> {
                     emailText.setText(user.getEmail());
-                    nameText.setText("User ID: " + user.getId()); // You can add a real name if available
+                    nameText.setText(user.getName() + " " + user.getId()); // You can add a real name if available
                 });
             } else {
                 runOnUiThread(() -> {
