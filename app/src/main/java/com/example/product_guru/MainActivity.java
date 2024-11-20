@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initialize UserDao
+        AppDatabase db = AppDatabase.getInstance(this);
+        userDao = db.userDao();
+
         TextView signInLink = findViewById(R.id.signInLink);
         Button signUpButton = findViewById(R.id.signUpButton);
         EditText emailEditText = findViewById(R.id.email);
