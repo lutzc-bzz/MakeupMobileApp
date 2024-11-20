@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TextView signUpLink = findViewById(R.id.signUpLink);
+        TextView forgotPasswordLink = findViewById(R.id.forgotPassword);
         Button signInButton = findViewById(R.id.signInButton);
         EditText emailInput = findViewById(R.id.email);
         EditText passwordInput = findViewById(R.id.password);
@@ -33,6 +34,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        forgotPasswordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         signInButton.setOnClickListener(v -> {
             String email = emailInput.getText().toString().trim();
@@ -53,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            // Navigate to the next screen or perform an action
+            Intent intent = new Intent(LoginActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
     }
 }
