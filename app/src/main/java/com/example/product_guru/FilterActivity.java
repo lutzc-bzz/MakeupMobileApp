@@ -88,12 +88,22 @@ public class FilterActivity extends AppCompatActivity {
                     selectedRating = 1.0;
                 }
 
+                Set<String> selectedCategory = new HashSet<>();
+                for (int i = 0; i < categoryCheckBoxContainer.getChildCount(); i++){
+                    CheckBox categoryCheckbox = (CheckBox) categoryCheckBoxContainer.getChildAt(i);
+                    if (categoryCheckbox.isChecked()){
+                        selectedCategory.add(categoryCheckbox.getText().toString());
+                    }
+                }
+
                 Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
                 intent.putExtra("minPrice", minPriceValue);
                 intent.putExtra("maxPrice", maxPriceValue);
                 ArrayList<String> selectedBrandsList = new ArrayList<>(selectedBrands);
                 intent.putStringArrayListExtra("selectedBrands", selectedBrandsList);
                 intent.putExtra("selectedRating", selectedRating);
+                ArrayList<String> selectedCategoryList = new ArrayList<>(selectedCategory);
+                intent.putStringArrayListExtra("selectedCategory", selectedCategoryList);
 
                 startActivity(intent);
             }

@@ -40,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
         double maxPrice = getIntent().getDoubleExtra("maxPrice", Double.MAX_VALUE);
         ArrayList<String> selectedBrands = getIntent().getStringArrayListExtra("selectedBrands");
         double rating = getIntent().getDoubleExtra("selectedRating", 0);
+        ArrayList<String> selectedCategory = getIntent().getStringArrayListExtra("selectedCategory");
 
         RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
         productRecyclerView.setVerticalScrollBarEnabled(true);
@@ -107,7 +108,7 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        applyFilter(minPrice, maxPrice, selectedBrands, rating);
+        applyFilter(minPrice, maxPrice, selectedBrands, rating, selectedCategory);
     }
 
     private void loadProducts() {
@@ -140,7 +141,7 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands, double rating) {
+    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands, double rating, ArrayList<String> selectedCategory) {
         List<Product> filteredList = new ArrayList<>();
 
         for (Product product : productList) {
@@ -182,6 +183,13 @@ public class SearchActivity extends AppCompatActivity {
 
             if (productRating < rating) {
                 continue;
+            }
+
+            if (selectedCategory != null && !selectedCategory.isEmpty()) {
+                String productCategory = product.getCategory();
+                if (productCategory == null || !selectedCategory.contains(productCategory)) {
+                    continue;
+                }
             }
 
             filteredList.add(product);
