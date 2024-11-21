@@ -96,6 +96,22 @@ public class FilterActivity extends AppCompatActivity {
                     }
                 }
 
+                Set<String> selectedProductType = new HashSet<>();
+                for (int i = 0; i < productTypeCheckBoxContainer.getChildCount(); i++){
+                    CheckBox productTypeCheck = (CheckBox) productTypeCheckBoxContainer.getChildAt(i);
+                    if (productTypeCheck.isChecked()){
+                        selectedProductType.add(productTypeCheck.getText().toString());
+                    }
+                }
+
+                Set<String> selectedIngredient = new HashSet<>();
+                for (int i = 0; i < ingredientCheckBoxContainer.getChildCount(); i++){
+                    CheckBox IngredientCheckbox = (CheckBox) ingredientCheckBoxContainer.getChildAt(i);
+                    if (IngredientCheckbox.isChecked()){
+                        selectedIngredient.add(IngredientCheckbox.getText().toString());
+                    }
+                }
+
                 Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
                 intent.putExtra("minPrice", minPriceValue);
                 intent.putExtra("maxPrice", maxPriceValue);
@@ -104,6 +120,10 @@ public class FilterActivity extends AppCompatActivity {
                 intent.putExtra("selectedRating", selectedRating);
                 ArrayList<String> selectedCategoryList = new ArrayList<>(selectedCategory);
                 intent.putStringArrayListExtra("selectedCategory", selectedCategoryList);
+                ArrayList<String> selectProductTypeList = new ArrayList<>(selectedProductType);
+                intent.putStringArrayListExtra("selectedProductType", selectProductTypeList);
+                ArrayList<String> selectedIngredientList = new ArrayList<>(selectedIngredient);
+                intent.putStringArrayListExtra("selectedIngredient", selectedIngredientList);
 
                 startActivity(intent);
             }

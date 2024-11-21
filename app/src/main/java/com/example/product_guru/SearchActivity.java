@@ -41,11 +41,13 @@ public class SearchActivity extends AppCompatActivity {
         ArrayList<String> selectedBrands = getIntent().getStringArrayListExtra("selectedBrands");
         double rating = getIntent().getDoubleExtra("selectedRating", 0);
         ArrayList<String> selectedCategory = getIntent().getStringArrayListExtra("selectedCategory");
+        ArrayList<String> selectedProductType = getIntent().getStringArrayListExtra("selectedProductType");
+        ArrayList<String> selectedIngredient = getIntent().getStringArrayListExtra("selectedIngredient");
 
         RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
         productRecyclerView.setVerticalScrollBarEnabled(true);
-        productRecyclerView.setScrollBarSize(10); // This should match the XML attribute if you want it wider than 2dp
-        productRecyclerView.setScrollbarFadingEnabled(false); // Keeps the scrollbar visible at all times
+        productRecyclerView.setScrollBarSize(10);
+        productRecyclerView.setScrollbarFadingEnabled(false);
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -108,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        applyFilter(minPrice, maxPrice, selectedBrands, rating, selectedCategory);
+        applyFilter(minPrice, maxPrice, selectedBrands, rating, selectedCategory, selectedIngredient, selectedProductType);
     }
 
     private void loadProducts() {
@@ -132,8 +134,10 @@ public class SearchActivity extends AppCompatActivity {
                 String productLink = jsonObject.getString("product_link");
                 String category = jsonObject.getString("category");
                 String rating = jsonObject.getString("rating");
+                String productType = jsonObject.getString("product_type");
+                String ingredient = jsonObject.getString("tag_list");
 
-                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink, category, rating));
+                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink, category, rating, productType, ingredient));
             }
             filteredProductList.addAll(productList);
             productAdapter.notifyDataSetChanged();
@@ -141,7 +145,7 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands, double rating, ArrayList<String> selectedCategory) {
+    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands, double rating, ArrayList<String> selectedCategory, ArrayList<String> selectedIngredient, ArrayList<String> selectedProductType) {
         List<Product> filteredList = new ArrayList<>();
 
         for (Product product : productList) {
@@ -188,6 +192,20 @@ public class SearchActivity extends AppCompatActivity {
             if (selectedCategory != null && !selectedCategory.isEmpty()) {
                 String productCategory = product.getCategory();
                 if (productCategory == null || !selectedCategory.contains(productCategory)) {
+                    continue;
+                }
+            }
+
+            if (selectedProductType != null && !selectedProductType.isEmpty()) {
+                String productType = product.getProductType();
+                if (productType == null || !selectedProductType.contains(productType)) {
+                    continue;
+                }
+            }
+
+            if (selectedIngredient != null && !selectedIngredient.isEmpty()) {
+                String productIngredient = product.getIngredients();
+                if (productIngredient == null || !selectedIngredient.contains(productIngredient)) {
                     continue;
                 }
             }
