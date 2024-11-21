@@ -2,7 +2,10 @@ package com.example.product_guru;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -25,6 +28,8 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView productRecyclerView;
     private ProductAdapter productAdapter;
     private List<Product> productList;
+    private List<Product> filteredProductList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,8 @@ public class SearchActivity extends AppCompatActivity {
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         productList = new ArrayList<>();
+        filteredProductList = new ArrayList<>();
+
         productAdapter = new ProductAdapter(this, productList);
         productRecyclerView.setAdapter(productAdapter);
 
@@ -82,6 +89,21 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        EditText searchEditText = findViewById(R.id.searchEditText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterProducts(s.toString()); // Filter products based on search input
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
     }
 
     private void loadProducts() {
@@ -103,12 +125,25 @@ public class SearchActivity extends AppCompatActivity {
                 String imageUrl = jsonObject.getString("image_link");
                 String description = jsonObject.getString("description");
                 String productLink = jsonObject.getString("product_link");
+                String category = jsonObject.getString("category");
 
-                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink));
+                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink, category));
             }
+            filteredProductList.addAll(productList);
             productAdapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void filterProducts(String query) {
+        List<Product> filteredList = new ArrayList<>();
+        for (Product product : productList) {
+            // Modify this condition based on your filtering criteria, e.g., name, category, etc.
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        productAdapter.updateList(filteredList);  // Update the adapter with the filtered list
     }
 }

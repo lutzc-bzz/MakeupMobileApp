@@ -8,8 +8,9 @@ public class Product {
     private String imageUrl;
     private String description;
     private String productLink;
+    private String category;
 
-    public Product(String brand, String name, String price, String currency, String imageUrl, String description, String productLink) {
+    public Product(String brand, String name, String price, String currency, String imageUrl, String description, String productLink, String category) {
         this.brand = brand;
         this.name = name;
         this.price = price;
@@ -17,6 +18,7 @@ public class Product {
         this.imageUrl = imageUrl;
         this.description = description;
         this.productLink = productLink;
+        this.category =category;
     }
 
     public String getBrand() { return brand; }
@@ -26,4 +28,6 @@ public class Product {
     public String getImageUrl() { return imageUrl; }
     public String getDescription() { return description; }
     public String getProductLink() { return productLink; }
+
+    public String getCategory() {return category;}
 }

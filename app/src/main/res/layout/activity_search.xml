@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-
-
+    <!-- Search Bar -->
     <LinearLayout
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
@@ -21,6 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <!-- Profile Icon -->
             <ImageView
                 android:id="@+id/profileIcon"
                 android:layout_width="50dp"
@@ -31,6 +31,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"  />
 
+            <!-- Filter Icon -->
             <ImageView
                 android:id="@+id/filterIcon"
                 android:layout_width="50dp"
@@ -42,12 +43,15 @@
                 android:layout_centerVertical="true"  />
 
         </RelativeLayout>
+
+        <!-- Search Box -->
         <LinearLayout
             android:id="@+id/searchBarBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_search_bar"
             android:padding="2dp">
+            <!-- Search Icon -->
             <ImageView
                 android:id="@+id/searchBarIcon"
                 android:layout_width="50dp"
@@ -57,6 +61,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"  />
+
+            <!-- Search EditText -->
             <EditText
                 android:id="@+id/searchEditText"
                 android:layout_width="match_parent"
@@ -67,12 +73,8 @@
                 android:background="#FFF"
                 android:inputType="text"
                 android:textColorHint="#000" />
-
         </LinearLayout>
-
-
     </LinearLayout>
-
 
     <!-- RecyclerView for Product Grid -->
     <androidx.recyclerview.widget.RecyclerView
@@ -87,7 +89,7 @@
         android:scrollbarSize="10dp"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
 
-
+    <!-- Bottom Navigation -->
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
@@ -97,6 +99,7 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+        <!-- Search Button -->
         <ImageButton
             android:id="@+id/navSearch"
             android:layout_width="0dp"
@@ -108,6 +111,7 @@
             android:contentDescription="Search"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
+        <!-- Saved Button -->
         <ImageButton
             android:id="@+id/navSaved"
             android:layout_width="0dp"
@@ -119,6 +123,7 @@
             android:contentDescription="Saved"
             android:background="?attr/selectableItemBackgroundBorderless" />
 
+        <!-- Camera Button -->
         <ImageButton
             android:id="@+id/navCamera"
             android:layout_width="0dp"
