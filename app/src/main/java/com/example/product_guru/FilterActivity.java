@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -49,6 +48,7 @@ public class FilterActivity extends AppCompatActivity {
         TextView productTypeToggleText = findViewById(R.id.toggleProductText);
 
         Button resetButton = findViewById(R.id.resetButton);
+        Button applyButton = findViewById(R.id.applyButton);
         ImageView backIcon = findViewById(R.id.backIcon);
 
         backIcon.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +58,36 @@ public class FilterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String minPriceStr = minPrice.getText().toString().trim();
+                String maxPriceStr = maxPrice.getText().toString().trim();
+
+                double minPriceValue = minPriceStr.isEmpty() ? 0 : Double.parseDouble(minPriceStr);
+                double maxPriceValue = maxPriceStr.isEmpty() ? Double.MAX_VALUE : Double.parseDouble(maxPriceStr);
+
+                Set<String> selectedBrands = new HashSet<>();
+
+                for (int i = 0; i < brandCheckBoxContainer.getChildCount(); i++) {
+                    CheckBox checkBox = (CheckBox) brandCheckBoxContainer.getChildAt(i);
+                    if (checkBox.isChecked()) {
+                        selectedBrands.add(checkBox.getText().toString());
+                    }
+                }
+                Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
+
+                intent.putExtra("minPrice", minPriceValue);
+                intent.putExtra("maxPrice", maxPriceValue);
+
+                ArrayList<String> selectedBrandsList = new ArrayList<>(selectedBrands);
+                intent.putStringArrayListExtra("selectedBrands", selectedBrandsList);
+
+                startActivity(intent);
+            }
+        });
+
 
         resetButton.setOnClickListener(v -> {
             minPrice.setText("");

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,11 +31,14 @@ public class SearchActivity extends AppCompatActivity {
     private List<Product> productList;
     private List<Product> filteredProductList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        double minPrice = getIntent().getDoubleExtra("minPrice", 0);
+        double maxPrice = getIntent().getDoubleExtra("maxPrice", Double.MAX_VALUE);
+        ArrayList<String> selectedBrands = getIntent().getStringArrayListExtra("selectedBrands");
 
 
         RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
@@ -51,7 +55,6 @@ public class SearchActivity extends AppCompatActivity {
         productRecyclerView.setAdapter(productAdapter);
 
         loadProducts();
-
 
         ImageView profileIcon = findViewById(R.id.profileIcon);
         ImageView filterIcon = findViewById(R.id.filterIcon);
@@ -97,13 +100,14 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterProducts(s.toString()); // Filter products based on search input
+                filterProducts(s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {}
         });
 
+        applyFilter(minPrice, maxPrice, selectedBrands);
     }
 
     private void loadProducts() {
@@ -135,15 +139,47 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands) {
+        List<Product> filteredList = new ArrayList<>();
+
+        for (Product product : productList) {
+            String priceString = product.getPrice();
+            double productPrice = 0;
+
+            if (priceString != null && !priceString.isEmpty()) {
+                try {
+                    productPrice = Double.parseDouble(priceString);
+                } catch (NumberFormatException e) {
+                    Log.e("SearchActivity", "Invalid product price: " + priceString);
+                    continue;
+                }
+            } else {
+                Log.e("SearchActivity", "Product price is null or empty: " + priceString);
+                continue;
+            }
+            if (productPrice < minPrice || productPrice > maxPrice) {
+                continue;
+            }
+
+            if (selectedBrands != null && !selectedBrands.isEmpty()) {
+                String productBrand = product.getBrand();
+                if (productBrand == null || !selectedBrands.contains(productBrand)) {
+                    continue;
+                }
+            }
+            filteredList.add(product);
+        }
+        productAdapter.updateList(filteredList);
+    }
+
 
     private void filterProducts(String query) {
         List<Product> filteredList = new ArrayList<>();
         for (Product product : productList) {
-            // Modify this condition based on your filtering criteria, e.g., name, category, etc.
             if (product.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(product);
             }
         }
-        productAdapter.updateList(filteredList);  // Update the adapter with the filtered list
+        productAdapter.updateList(filteredList);
     }
 }
