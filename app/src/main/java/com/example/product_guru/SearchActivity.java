@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
         double minPrice = getIntent().getDoubleExtra("minPrice", 0);
         double maxPrice = getIntent().getDoubleExtra("maxPrice", Double.MAX_VALUE);
         ArrayList<String> selectedBrands = getIntent().getStringArrayListExtra("selectedBrands");
-
+        double rating = getIntent().getDoubleExtra("selectedRating", 0);
 
         RecyclerView productRecyclerView = findViewById(R.id.productRecyclerView);
         productRecyclerView.setVerticalScrollBarEnabled(true);
@@ -107,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
-        applyFilter(minPrice, maxPrice, selectedBrands);
+        applyFilter(minPrice, maxPrice, selectedBrands, rating);
     }
 
     private void loadProducts() {
@@ -130,8 +130,9 @@ public class SearchActivity extends AppCompatActivity {
                 String description = jsonObject.getString("description");
                 String productLink = jsonObject.getString("product_link");
                 String category = jsonObject.getString("category");
+                String rating = jsonObject.getString("rating");
 
-                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink, category));
+                productList.add(new Product(brand, name, price, currency, imageUrl, description, productLink, category, rating));
             }
             filteredProductList.addAll(productList);
             productAdapter.notifyDataSetChanged();
@@ -139,7 +140,7 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands) {
+    private void applyFilter(double minPrice, double maxPrice, ArrayList<String> selectedBrands, double rating) {
         List<Product> filteredList = new ArrayList<>();
 
         for (Product product : productList) {
@@ -167,6 +168,22 @@ public class SearchActivity extends AppCompatActivity {
                     continue;
                 }
             }
+
+            String ProductRating = product.getRating();
+            double productRating = 0;
+            if (ProductRating != null && !ProductRating.isEmpty()) {
+                try {
+                    productRating = Double.parseDouble(ProductRating);
+                } catch (NumberFormatException e) {
+                    Log.e("SearchActivity", "Invalid product rating: " + ProductRating);
+                    continue;
+                }
+            }
+
+            if (productRating < rating) {
+                continue;
+            }
+
             filteredList.add(product);
         }
         productAdapter.updateList(filteredList);

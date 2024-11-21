@@ -76,13 +76,24 @@ public class FilterActivity extends AppCompatActivity {
                         selectedBrands.add(checkBox.getText().toString());
                     }
                 }
-                Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
 
+                double selectedRating = 0; // Default to no filter
+                if (findViewById(R.id.rating_4).isSelected()) {
+                    selectedRating = 4.0;
+                } else if (findViewById(R.id.rating_3).isSelected()) {
+                    selectedRating = 3.0;
+                } else if (findViewById(R.id.rating_2).isSelected()) {
+                    selectedRating = 2.0;
+                } else if (findViewById(R.id.rating_1).isSelected()) {
+                    selectedRating = 1.0;
+                }
+
+                Intent intent = new Intent(FilterActivity.this, SearchActivity.class);
                 intent.putExtra("minPrice", minPriceValue);
                 intent.putExtra("maxPrice", maxPriceValue);
-
                 ArrayList<String> selectedBrandsList = new ArrayList<>(selectedBrands);
                 intent.putStringArrayListExtra("selectedBrands", selectedBrandsList);
+                intent.putExtra("selectedRating", selectedRating);
 
                 startActivity(intent);
             }

@@ -20,10 +20,10 @@ public class SavedActivity extends AppCompatActivity {
 
         // Beispiel-Daten für gespeicherte Produkte
         List<Product> savedProducts = new ArrayList<>();
-        savedProducts.add(new Product("Brand A", "Product 1", "10.99", "USD", "https://via.placeholder.com/150", "Description 1", "https://example.com", "lipstick"));
-        savedProducts.add(new Product("Brand B", "Product 2", "15.49", "USD", "https://via.placeholder.com/150", "Description 2", "https://example.com", "foundation"));
-        savedProducts.add(new Product("Brand C", "Product 3", "25.00", "USD", "https://via.placeholder.com/150", "Description 3", "https://example.com", "blush"));
-        savedProducts.add(new Product("Brand D", "Product 4", "8.99", "USD", "https://via.placeholder.com/150", "Description 4", "https://example.com", "concealer"));
+        savedProducts.add(new Product("Brand A", "Product 1", "10.99", "USD", "https://via.placeholder.com/150", "Description 1", "https://example.com", "lipstick", "5.0"));
+        savedProducts.add(new Product("Brand B", "Product 2", "15.49", "USD", "https://via.placeholder.com/150", "Description 2", "https://example.com", "foundation", "4.5"));
+        savedProducts.add(new Product("Brand C", "Product 3", "25.00", "USD", "https://via.placeholder.com/150", "Description 3", "https://example.com", "blush", "3.5"));
+        savedProducts.add(new Product("Brand D", "Product 4", "8.99", "USD", "https://via.placeholder.com/150", "Description 4", "https://example.com", "concealer", "4.0"));
 
         // RecyclerView initialisieren
         RecyclerView recyclerView = findViewById(R.id.recyclerViewSavedProducts);
